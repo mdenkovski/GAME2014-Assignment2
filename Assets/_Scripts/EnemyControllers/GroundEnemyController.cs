@@ -95,6 +95,9 @@ public class GroundEnemyController : MonoBehaviour
         return false;
     }
 
+    /// <summary>
+    /// move towards the player and initiate an attack if close enough
+    /// </summary>
     private void _MoveTowardPlayer()
     {
         //find the distance to the player
@@ -130,6 +133,10 @@ public class GroundEnemyController : MonoBehaviour
         Rigidbody.velocity = (DirectionFacing * speed);
     }
 
+    /// <summary>
+    /// is the enemy able to move forward or is there no ground or a trap blocking the way
+    /// </summary>
+    /// <returns></returns>
     private bool CanMoveForward()
     {
         RaycastHit2D hit = Physics2D.Linecast(transform.position, groundCheckTransform.position, groundCheckLayers);

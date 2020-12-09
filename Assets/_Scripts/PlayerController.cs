@@ -25,9 +25,17 @@ public class PlayerController : MonoBehaviour
     public Rigidbody2D Rigidbody;
     //how fast we move
     public float Speed = 5;
+
+    [Header("Jumping")]
     //how strong we jump
     public float JumpPower  = 5;
+    [SerializeField]
+    bool isJumping;
+    [SerializeField]
+    bool isGrounded;
+    public LayerMask collisionGroundLayer;
 
+    [Header("Effects")]
     //use to control our animations
     public Animator animator;
     //use to manipulate the direction of our sprite
@@ -81,25 +89,53 @@ public class PlayerController : MonoBehaviour
         }
         animator.SetFloat("Speed", math.abs(Rigidbody.velocity.x));
 
+
         if (joystick.Vertical > 0.6f) //jump
         {
-            if (transform.position.y < 1.16 && transform.position.y > 1.15) //if near gorund level
+            if (IsGrounded() && !isJumping) //if near gorund level and not already jumping
             {
                 //Debug.Log("Jumping");
                 //preserve our x velocit while jumping
                 Rigidbody.velocity = new Vector2(Rigidbody.velocity.x, JumpPower);
+                isJumping = true;
                 animator.SetBool("IsJumping", true);
             }
         }
         else
         {
             //not jumping
+            isJumping = false;
             animator.SetBool("IsJumping", false);
         }
 
         //Debug.DrawLine(transform.position, transform.position +  new Vector3(joystick.InputDirection.normalized.x, joystick.InputDirection.normalized.y, 0.0f)*5);
 
         Debug.DrawLine(AttackPositoin.position, AttackPositoin.position + m_direction * AttackRange, Color.red);
+    }
+
+    /// <summary>
+    /// check if the ground is below us
+    /// </summary>
+    /// <returns></returns>
+    private bool IsGrounded()
+    {
+        RaycastHit2D groundHit = Physics2D.CircleCast(transform.position - new Vector3(0.0f, 0.75f, 0.0f), 0.3f, Vector2.down, 0.2f, collisionGroundLayer);
+        if(groundHit)
+        {
+            isGrounded = true;
+            return true;
+        }
+        return false;
+    }
+
+    /// <summary>
+    /// draw the circle cast gizmo
+    /// </summary>
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.white;
+
+        Gizmos.DrawWireSphere(transform.position - new Vector3(0.0f, 0.75f, 0.0f), 0.3f);
     }
 
     /// <summary>
@@ -124,11 +160,16 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// respawn the player and reset parameters
+    /// </summary>
     public void Respawn()
     {
         m_direction = Vector3.right;
         transform.position = FindObjectOfType<PlayerRespawn>().transform.position;
         animator.SetBool("IsDead", false);
         animator.SetTrigger("Respawn");
+        isJumping = false;
+        isGrounded = false;
     }
 }
