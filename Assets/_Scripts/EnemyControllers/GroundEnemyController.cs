@@ -148,11 +148,11 @@ public class GroundEnemyController : MonoBehaviour
         {
             if (hit.collider.gameObject.tag == "Trap")
             {
-                Debug.Log("Trap detected");
+                //Debug.Log("Trap detected");
                 return false;
             }
 
-            Debug.Log("Ground hit");
+            //Debug.Log("Ground hit");
             return true;
         }
 

@@ -2,6 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+/// <summary>
+/// Michael Denkovski 101222288 Game 2014
+/// CheckpointScript.cs
+/// Last Edit Dec 8, 2020
+/// - update player repawn when player triggers checkpoint collision
+/// </summary>
 public class CheckpointScript : MonoBehaviour
 {
     public Transform spawnPoint;
