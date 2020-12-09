@@ -21,17 +21,23 @@ using UnityEngine;
 public class GroundEnemyController : MonoBehaviour
 {
     public Animator animator;
-    public float speed = 5;
     //our body that we are moving
     public Rigidbody2D Rigidbody;
-    //how far our line trace will go out
-    public float DetectionRange = 10.0f;
+
+    [Header("Movement")]
+    public float speed = 5;
     //duration of time to pass before we switch direction in patrol
     public float PatrolDuration = 3.0f;
+    public Transform groundCheckTransform;
+    public LayerMask groundCheckLayers; // layers to detect ground
     private float TimeSinceLastPatrol;
 
+    [Header("Detection")]
+    //how far our line trace will go out
+    public float DetectionRange = 10.0f;
     Vector3 DirectionFacing;
     public LayerMask playerLayer; // know where to find our player
+
 
     public EnemyStats stats;
     private float lastAttack;
@@ -92,13 +98,17 @@ public class GroundEnemyController : MonoBehaviour
     {
         //find the distance to the player
         float distance = math.distance(playerCharacter.transform.position.x, transform.position.x);
-        if (distance >1)
+        if (distance > 1 && CanMoveForward()) //player detected and can move forward
         {
             Rigidbody.velocity = (DirectionFacing * speed);
         }
         else if(_CheckForPlayer()) //in range and player is in our line of sight
         {
             Attack();
+        }
+        else // if fails just patrol
+        {
+            _Patrol();
         }
     }
 
@@ -107,17 +117,37 @@ public class GroundEnemyController : MonoBehaviour
     /// </summary>
     private void _Patrol()
     {
-        if(Time.time - TimeSinceLastPatrol > PatrolDuration)
+        if(Time.time - TimeSinceLastPatrol > PatrolDuration || !CanMoveForward())
         {
             //reverse out patrol direction
             DirectionFacing *= -1;
-            spriteRenderer.flipX = (DirectionFacing.x == 1? false :true);
+            //spriteRenderer.flipX = (DirectionFacing.x == 1? false :true);
             TimeSinceLastPatrol = Time.time;
+            transform.localScale = new Vector3(transform.localScale.x * -1.0f, transform.localScale.y, transform.localScale.z);
         }
 
         Rigidbody.velocity = (DirectionFacing * speed);
     }
 
+    private bool CanMoveForward()
+    {
+        RaycastHit2D hit = Physics2D.Linecast(transform.position, groundCheckTransform.position, groundCheckLayers);
+        Debug.DrawLine(transform.position, groundCheckTransform.position, Color.red);
+
+        if(hit.collider.gameObject.tag == "Trap")
+        {
+            return false;
+        }
+
+        if(hit)
+        {
+            Debug.Log("Ground hit");
+            return true;
+        }
+
+
+        return false;
+    }
 
     /// <summary>
     /// Perform our attack when called
