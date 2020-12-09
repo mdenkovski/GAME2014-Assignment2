@@ -58,14 +58,14 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         //parse movement
-        if (joystick.InputDirection.x > 0.2f)//move right
+        if (joystick.Horizontal> 0.2f)//move right
         {
             //Debug.Log("Moving Right");
             m_direction = Vector3.right;
             Rigidbody.velocity = new Vector2(Speed , Rigidbody.velocity.y);
             spriteRenderer.flipX = false;
         }
-        else if (joystick.InputDirection.x < -0.2f) // move left
+        else if (joystick.Horizontal < -0.2f) // move left
         {
             m_direction = Vector3.left;
             //flip our sprite to face the opposite direction
@@ -80,7 +80,7 @@ public class PlayerController : MonoBehaviour
         }
         animator.SetFloat("Speed", math.abs(Rigidbody.velocity.x));
 
-        if (joystick.InputDirection.y > 0.6f) //jump
+        if (joystick.Vertical > 0.6f) //jump
         {
             if (transform.position.y < 1.16 && transform.position.y > 1.15) //if near gorund level
             {

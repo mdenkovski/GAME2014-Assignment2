@@ -8,11 +8,12 @@ using UnityEngine.UI;
 
 /// <summary>
 /// Michael Dnekovski 101222288 Game 2014
-/// Joystick.cs
-/// Last Edit Oct 21, 2020
+/// CustomJoystick.cs
+/// Last Edit Dec 8, 2020
 /// - created joystic to hold a normalized direction in where the player is touching the screen vs the touch pad
+/// - renamed to custom joystick to differentiate with imported ones
 /// </summary>
-public class Joystick : MonoBehaviour
+public class CustomJoystick : MonoBehaviour
 {
     private Vector2 m_InputDirection;
     public Vector2 InputDirection
