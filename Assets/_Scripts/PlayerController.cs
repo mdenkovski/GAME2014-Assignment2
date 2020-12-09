@@ -163,6 +163,15 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        if(other.gameObject.tag == "FlyingEnemy")
+        {
+            other.gameObject.GetComponent<EnemyStats>().TakeDamage(AttackPower);
+        }
+    }
+
     /// <summary>
     /// respawn the player and reset parameters
     /// </summary>

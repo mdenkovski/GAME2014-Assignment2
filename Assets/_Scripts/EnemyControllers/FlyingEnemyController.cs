@@ -3,30 +3,13 @@ using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
 
-
-/// <summary>
-/// Michael Dnekovski 101222288 Game 2014
-/// GroundEnemyController.cs
-/// Last Edit Dec 8, 2020
-/// - added simple AI to move towards player if within certain range
-/// - animations based on actions
-/// - attack the player and deal damage if within a certain range
-/// - reworked AI to use line tracing to detect the player
-/// - movement based on rigidbody
-/// - patroling behaviour
-/// - move toward player when detected
-/// - added audio effect for attacking
-/// - added ground check for patrolling
-/// </summary>
-
-public class GroundEnemyController : EnemyController
+public class FlyingEnemyController : EnemyController
 {
-    
 
     [Header("Movement")]
-    public float speed = 5;
+    public float speed = 10;
     //duration of time to pass before we switch direction in patrol
-    public float PatrolDuration = 3.0f;
+    public float PatrolDuration = 1.0f;
     public Transform groundCheckTransform;
     public LayerMask groundCheckLayers; // layers to detect ground
     private float TimeSinceLastPatrol;
@@ -60,7 +43,7 @@ public class GroundEnemyController : EnemyController
     void Update()
     {
         //if player is in detection range
-        if(_CheckForPlayer())
+        if (_CheckForPlayer())
         {
             _MoveTowardPlayer();
         }
@@ -68,9 +51,8 @@ public class GroundEnemyController : EnemyController
         {
             _Patrol();
         }
-        animator.SetFloat("Speed", math.abs(Rigidbody.velocity.x));
 
-        
+
     }
 
     /// <summary>
@@ -79,12 +61,16 @@ public class GroundEnemyController : EnemyController
     /// <returns></returns>
     private bool _CheckForPlayer()
     {
-        RaycastHit2D hit = Physics2D.Linecast(transform.position, transform.position + DirectionFacing * DetectionRange, playerLayer);
-        Debug.DrawLine(transform.position, transform.position + DirectionFacing * DetectionRange, Color.red);
+        RaycastHit2D hit = Physics2D.Linecast(transform.position, transform.position + Vector3.down * DetectionRange, playerLayer);
+        Debug.DrawLine(transform.position, transform.position + Vector3.down * DetectionRange, Color.red);
         //Debug.Log(hit.collider);
-        if (hit.collider != null)
+        if (hit)
         {
-            return true;
+            if(hit.collider.gameObject.tag == "Player")
+            {
+                return true;
+
+            }
         }
 
         return false;
@@ -101,8 +87,9 @@ public class GroundEnemyController : EnemyController
         {
             Rigidbody.velocity = (DirectionFacing * speed);
         }
-        else if(_CheckForPlayer()) //in range and player is in our line of sight
+        else if (_CheckForPlayer()) //in range and player is in our line of sight
         {
+            Rigidbody.velocity = new Vector2(0.0f, 0.0f);
             Attack();
         }
         else // if fails just patrol
@@ -116,7 +103,7 @@ public class GroundEnemyController : EnemyController
     /// </summary>
     private void _Patrol()
     {
-        if(Time.time - TimeSinceLastPatrol > PatrolDuration || !CanMoveForward())
+        if (Time.time - TimeSinceLastPatrol > PatrolDuration || !CanMoveForward())
         {
             //reverse out patrol direction
             DirectionFacing *= -1;
@@ -136,22 +123,15 @@ public class GroundEnemyController : EnemyController
         RaycastHit2D hit = Physics2D.Linecast(transform.position, groundCheckTransform.position, groundCheckLayers);
         Debug.DrawLine(transform.position, groundCheckTransform.position, Color.red);
 
-        
 
-        if(hit)
+        //if anything is in the way dont move towards it
+        if (hit)
         {
-            if (hit.collider.gameObject.tag == "Trap")
-            {
-                //Debug.Log("Trap detected");
-                return false;
-            }
-
-            //Debug.Log("Ground hit");
-            return true;
+            return false;
         }
 
 
-        return false;
+        return true;
     }
 
     /// <summary>
@@ -170,7 +150,7 @@ public class GroundEnemyController : EnemyController
             lastAttack = Time.time;
             //deal guaranteed damage to our player
             playerCharacter.GetComponent<PlayerStats>().TakeDamage(stats.AttackPower);
-           
+
         }
 
     }

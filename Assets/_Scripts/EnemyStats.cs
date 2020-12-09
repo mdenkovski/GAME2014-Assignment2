@@ -15,7 +15,7 @@ using UnityEngine;
 public class EnemyStats : MonoBehaviour
 {
     //parameters for control
-    public GroundEnemyController Controller;
+    public EnemyController Controller;
     public BoxCollider2D Collider;
     public Animator animator;
 
@@ -71,7 +71,7 @@ public class EnemyStats : MonoBehaviour
         DeathAudio.Play();
         //disable our enemy
         Controller.Rigidbody.gravityScale = 0;
-        Controller.Rigidbody.velocity = new Vector3();
+        //Controller.Rigidbody.velocity = new Vector3();
         Controller.enabled = false;
         Collider.enabled = false;
         this.enabled = false;
