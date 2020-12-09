@@ -60,6 +60,7 @@ public class RotatingPlatformController : MonoBehaviour
         transform.rotation = Quaternion.Euler(Rotation);
         if (platformTimer > RotationSpeed)
         {
+            lastRotation = transform.rotation.eulerAngles;
             isActive = false;
         }
     }
