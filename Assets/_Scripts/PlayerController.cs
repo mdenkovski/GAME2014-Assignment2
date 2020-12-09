@@ -23,6 +23,9 @@ public class PlayerController : MonoBehaviour
     public Joystick joystick;
     //our body that we are moving
     public Rigidbody2D Rigidbody;
+
+    public Transform respawn;
+
     //how fast we move
     public float Speed = 5;
 
@@ -166,7 +169,7 @@ public class PlayerController : MonoBehaviour
     public void Respawn()
     {
         m_direction = Vector3.right;
-        transform.position = FindObjectOfType<PlayerRespawn>().transform.position;
+        transform.position = respawn.position;
         animator.SetBool("IsDead", false);
         animator.SetTrigger("Respawn");
         isJumping = false;
