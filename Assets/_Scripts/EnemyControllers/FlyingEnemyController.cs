@@ -3,6 +3,16 @@ using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
 
+/// <summary>
+/// Michael Dnekovski 101222288 Game 2014
+/// FlyingEnemyController.cs
+/// Last Edit Dec 8, 2020
+/// - created flying enemy controller based on ground enemy controller
+/// - detects player below the enemy
+/// - turns if it detects anything infront of it
+/// - stops to hover over the player
+/// </summary>
+
 public class FlyingEnemyController : EnemyController
 {
 

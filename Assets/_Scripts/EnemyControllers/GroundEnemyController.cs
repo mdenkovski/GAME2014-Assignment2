@@ -17,6 +17,7 @@ using UnityEngine;
 /// - move toward player when detected
 /// - added audio effect for attacking
 /// - added ground check for patrolling
+/// - reparented to generic enemy controller
 /// </summary>
 
 public class GroundEnemyController : EnemyController

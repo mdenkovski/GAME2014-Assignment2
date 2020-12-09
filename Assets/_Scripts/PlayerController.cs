@@ -15,6 +15,7 @@ using UnityEngine;
 ///  - respawn feature
 ///  - added audio effect for swinging weapon
 ///  - implemented asset joystick instead of custom joystick
+///  - attach and detatch from moving platforms when interact with them
 /// </summary>
 
 public class PlayerController : MonoBehaviour

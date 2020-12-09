@@ -2,6 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+/// <summary>
+/// Michael Dnekovski 101222288 Game 2014
+/// MovingPlatformController.cs
+/// Last Edit Dec 8, 2020
+/// - move the platform to target location when activated
+/// - move towards the target that the player is closest to when not "active"
+/// </summary>
 public class MovingPlatformController : MonoBehaviour
 {
     public Transform start;

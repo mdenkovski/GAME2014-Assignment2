@@ -8,13 +8,14 @@ using UnityEngine.Events;
 /// <summary>
 /// Michael Dnekovski 101222288 Game 2014
 /// PlayerStats.cs
-/// Last Edit Oct 24, 2020
+/// Last Edit Dec 8, 2020
 /// - added stats that the player would need
 /// - added functions for taking damage and death
 /// - added coroutine to taking damage so that timing works better
 /// - added transition to game over screen
 /// - connectoin to health bar slider
 /// - added audio effects for death and life increase
+/// - added unity event for player death to be invoked
 /// </summary>
 
 public class PlayerStats : MonoBehaviour
