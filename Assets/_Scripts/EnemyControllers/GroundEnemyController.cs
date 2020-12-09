@@ -7,7 +7,7 @@ using UnityEngine;
 /// <summary>
 /// Michael Dnekovski 101222288 Game 2014
 /// GroundEnemyController.cs
-/// Last Edit Oct 24, 2020
+/// Last Edit Dec 8, 2020
 /// - added simple AI to move towards player if within certain range
 /// - animations based on actions
 /// - attack the player and deal damage if within a certain range
@@ -16,6 +16,7 @@ using UnityEngine;
 /// - patroling behaviour
 /// - move toward player when detected
 /// - added audio effect for attacking
+/// - added ground check for patrolling
 /// </summary>
 
 public class GroundEnemyController : MonoBehaviour
@@ -134,13 +135,16 @@ public class GroundEnemyController : MonoBehaviour
         RaycastHit2D hit = Physics2D.Linecast(transform.position, groundCheckTransform.position, groundCheckLayers);
         Debug.DrawLine(transform.position, groundCheckTransform.position, Color.red);
 
-        if(hit.collider.gameObject.tag == "Trap")
-        {
-            return false;
-        }
+        
 
         if(hit)
         {
+            if (hit.collider.gameObject.tag == "Trap")
+            {
+                Debug.Log("Trap detected");
+                return false;
+            }
+
             Debug.Log("Ground hit");
             return true;
         }

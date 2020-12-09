@@ -7,13 +7,14 @@ using UnityEngine;
 /// <summary>
 /// Michael Dnekovski 101222288 Game 2014
 /// PlayerController.cs
-/// Last Edit Oct 24, 2020
+/// Last Edit Dec 8, 2020
 /// - added movement to take input from our joystick
 /// - added animation transitions based on actions
 /// - added player attack
 ///  - attack in correct direction
 ///  - respawn feature
 ///  - added audio effect for swinging weapon
+///  - implemented asset joystick instead of custom joystick
 /// </summary>
 
 public class PlayerController : MonoBehaviour
