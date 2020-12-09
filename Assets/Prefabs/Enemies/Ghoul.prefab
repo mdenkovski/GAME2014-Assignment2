@@ -202,7 +202,7 @@ MonoBehaviour:
   animator: {fileID: 8126541300580261281}
   Rigidbody: {fileID: 6137208387067931672}
   speed: 4
-  PatrolDuration: 1
+  PatrolDuration: 5
   groundCheckTransform: {fileID: 6338041356151532899}
   groundCheckLayers:
     serializedVersion: 2

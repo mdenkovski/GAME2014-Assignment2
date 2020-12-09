@@ -6,11 +6,12 @@ using UnityEngine;
 /// <summary>
 /// Michael Dnekovski 101222288 Game 2014
 /// EnemyStats.cs
-/// Last Edit Oct 24, 2020
+/// Last Edit Dec 8, 2020
 /// - added stats that an enemy would need
 /// - added take damage and death functions to control those functions
 /// - give score when die
 /// - added audio effect for taking hit and death
+/// - added ability wo work with Generic enemy controller instead of groundenemycontroller
 /// </summary>
 public class EnemyStats : MonoBehaviour
 {

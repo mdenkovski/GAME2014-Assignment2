@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.Events;
 
 /// <summary>
 /// Michael Dnekovski 101222288 Game 2014
@@ -41,6 +42,9 @@ public class PlayerStats : MonoBehaviour
     //keep track if we are dead
     private bool b_dead = false;
     // Start is called before the first frame update
+
+    public UnityEvent PlayerDeath;
+
     void Start()
     {
         //set health to max health
@@ -118,7 +122,8 @@ public class PlayerStats : MonoBehaviour
         DeathAudio.Play();
         Controller.Rigidbody.velocity = new Vector3(0.0f, 0.0f, 0.0f);
         animator.SetBool("IsDead", true);
-        if(health >0)
+        PlayerDeath.Invoke();
+        if (health >0)
         {
             HealthSlider.value = 0;
             animator.SetTrigger("EnvirontmentDeath");
@@ -135,6 +140,7 @@ public class PlayerStats : MonoBehaviour
             Controller.enabled = false;
 
         }
+        
     }
 
     IEnumerator Respawn()

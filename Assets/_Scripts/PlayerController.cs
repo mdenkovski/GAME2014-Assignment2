@@ -170,6 +170,21 @@ public class PlayerController : MonoBehaviour
         {
             other.gameObject.GetComponent<EnemyStats>().TakeDamage(AttackPower);
         }
+
+        if (other.gameObject.tag  == "Moving Platform")
+        {
+            other.gameObject.GetComponent<MovingPlatformController>().isActive = true;
+            transform.SetParent(other.gameObject.transform);
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D other)
+    {
+        if (other.gameObject.tag  == "Moving Platform")
+        {
+            other.gameObject.GetComponent<MovingPlatformController>().isActive = false;
+            transform.SetParent(null);
+        }
     }
 
     /// <summary>
