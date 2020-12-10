@@ -8,11 +8,12 @@ using UnityEngine.UI;
 /// <summary>
 /// Michael Dnekovski 101222288 Game 2014
 /// GameController.cs
-/// Last Edit Oct 24, 2020
+/// Last Edit Dec 12, 2020
 /// -updated rotation to account for landsape ref resolution
 /// - commented outsome debug lines
 ///  - added functions to increase score and update lives labels
 ///  -added audio effect for increase score
+///  - gets the stats programatically
 /// </summary>
 
 public class GameController : MonoBehaviour
@@ -28,8 +29,8 @@ public class GameController : MonoBehaviour
     private float scoreLabelHalfWidth;
     private float scoreLabelHalfHeight;
 
-    private int m_score = 0;
-    public GameStats stats;
+    private int m_score;
+    private GameStats stats;
 
     public Vector2 scale;
 
@@ -56,6 +57,9 @@ public class GameController : MonoBehaviour
         scoreLabelHalfWidth = scale.x * ScoreLabel.rectTransform.rect.width * 0.5f;
         scoreLabelHalfHeight = scale.y * ScoreLabel.rectTransform.rect.height * 0.5f;
 
+        //get the score from the game stats
+        stats = FindObjectOfType<GameStats>();
+        m_score = stats.Score;
         //set our score label
         ScoreLabel.text = "Score: " + m_score.ToString();
 
@@ -73,7 +77,7 @@ public class GameController : MonoBehaviour
         //Debug.Log("half height: " + livesLabelHalfHeight);
         //Debug.Log("Scaler ref:  " + scaler.referenceResolution);
         //Debug.Log("Scaler multiplier:  " + scale);
-        stats.Score = m_score;
+        
     }
 
 

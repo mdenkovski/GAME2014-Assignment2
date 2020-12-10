@@ -5,8 +5,9 @@ using UnityEngine;
 /// <summary>
 /// Michael Dnekovski 101222288 Game 2014
 /// GameStats.cs
-/// Last Edit Oct 23, 2020
+/// Last Edit Dec 12, 2020
 /// - hold the game stats unto the next scene
+/// - initialize score at 0
 /// </summary>
 public class GameStats : MonoBehaviour
 {
@@ -17,6 +18,7 @@ public class GameStats : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Score = 0;
         DontDestroyOnLoad(gameObject);
     }
 
