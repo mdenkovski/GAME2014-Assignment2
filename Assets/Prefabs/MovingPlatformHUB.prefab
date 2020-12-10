@@ -442,6 +442,8 @@ MonoBehaviour:
   isActive: 0
   platformTimer: 0
   threshold: 0.1
+  distanceStart: 0
+  distanceEnd: 0
   player: {fileID: 0}
 --- !u!1 &6444097770432106443
 GameObject:
@@ -452,7 +454,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6444097770432106440}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: MovingPlatformHUB
   m_TagString: Untagged
   m_Icon: {fileID: 0}

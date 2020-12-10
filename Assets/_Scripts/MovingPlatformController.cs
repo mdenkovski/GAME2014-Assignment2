@@ -18,6 +18,7 @@ public class MovingPlatformController : MonoBehaviour
     public float platformTimer;
     public float threshold;
 
+
     //get the player details from here
     public PlayerStats player;
 
@@ -46,8 +47,8 @@ public class MovingPlatformController : MonoBehaviour
         }
         else
         {
-            var distanceStart = Vector3.Distance(player.transform.position, start.position);
-            var distanceEnd = Vector3.Distance(player.transform.position, end.position);
+             var distanceStart = Vector3.Distance(player.transform.position, start.position);
+             var distanceEnd = Vector3.Distance(player.transform.position, end.position);
 
             if (distanceStart < distanceEnd) //closer to the start position
             {

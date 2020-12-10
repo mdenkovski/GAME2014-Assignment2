@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5333995886695212943}
   - component: {fileID: 5333995886695212942}
   - component: {fileID: 4036836888132821566}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: RotatingPlaftormTrap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
