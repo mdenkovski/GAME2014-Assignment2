@@ -228,7 +228,7 @@ MonoBehaviour:
   Controller: {fileID: 649340340892912623}
   Collider: {fileID: 5077678786370367116}
   animator: {fileID: 8126541300580261281}
-  scoreValue: 150
+  scoreValue: 200
   maxHealth: 10
   AttackPower: 5
   AttackSpeed: 1

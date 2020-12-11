@@ -6,9 +6,9 @@ using UnityEngine.SceneManagement;
 using UnityEngine.Events;
 
 /// <summary>
-/// Michael Dnekovski 101222288 Game 2014
+/// Michael Denkovski 101222288 Game 2014
 /// PlayerStats.cs
-/// Last Edit Dec 8, 2020
+/// Last Edit Dec 10, 2020
 /// - added stats that the player would need
 /// - added functions for taking damage and death
 /// - added coroutine to taking damage so that timing works better
@@ -16,6 +16,7 @@ using UnityEngine.Events;
 /// - connectoin to health bar slider
 /// - added audio effects for death and life increase
 /// - added unity event for player death to be invoked
+/// - added function to get is dead status
 /// </summary>
 
 public class PlayerStats : MonoBehaviour
@@ -144,6 +145,10 @@ public class PlayerStats : MonoBehaviour
         
     }
 
+    /// <summary>
+    /// respawn the player and reset values
+    /// </summary>
+    /// <returns></returns>
     IEnumerator Respawn()
     {
         Controller.enabled = false;
@@ -153,5 +158,10 @@ public class PlayerStats : MonoBehaviour
         b_dead = false;
         Controller.Respawn();
         Controller.enabled = true;
+    }
+
+    public bool IsDead()
+    {
+        return b_dead;
     }
 }

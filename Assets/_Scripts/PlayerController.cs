@@ -5,9 +5,9 @@ using Unity.Mathematics;
 using UnityEngine;
 
 /// <summary>
-/// Michael Dnekovski 101222288 Game 2014
+/// Michael Denkovski 101222288 Game 2014
 /// PlayerController.cs
-/// Last Edit Dec 8, 2020
+/// Last Edit Dec 10, 2020
 /// - added movement to take input from our joystick
 /// - added animation transitions based on actions
 /// - added player attack
@@ -16,6 +16,7 @@ using UnityEngine;
 ///  - added audio effect for swinging weapon
 ///  - implemented asset joystick instead of custom joystick
 ///  - attach and detatch from moving platforms when interact with them
+///  - make sure we are not dead before attacking as well
 /// </summary>
 
 public class PlayerController : MonoBehaviour
@@ -147,8 +148,8 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     public void Attack()
     {
-        //check if the difference from the last time we attacked is greater than our attack speed in seconds
-        if (Time.time - lastAttack > AttackSpeed)
+        //check if the difference from the last time we attacked is greater than our attack speed in seconds and are not dead
+        if (Time.time - lastAttack > AttackSpeed && !GetComponent<PlayerStats>().IsDead())
         {
             //Debug.Log("Attacking");
             animator.SetTrigger("Attack"); //attack animation

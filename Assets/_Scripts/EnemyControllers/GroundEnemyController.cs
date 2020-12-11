@@ -98,9 +98,17 @@ public class GroundEnemyController : EnemyController
     {
         //find the distance to the player
         float distance = math.distance(playerCharacter.transform.position.x, transform.position.x);
-        if (distance > 1 && CanMoveForward()) //player detected and can move forward
+        if (distance > 1) //player detected and can move forward
         {
+            if(CanMoveForward())
+            {
             Rigidbody.velocity = (DirectionFacing * speed);
+
+            }
+            else
+            {
+                ReverseDirection();
+            }
         }
         else if(_CheckForPlayer()) //in range and player is in our line of sight
         {
@@ -119,13 +127,18 @@ public class GroundEnemyController : EnemyController
     {
         if(Time.time - TimeSinceLastPatrol > PatrolDuration || !CanMoveForward())
         {
-            //reverse out patrol direction
-            DirectionFacing *= -1;
-            TimeSinceLastPatrol = Time.time;
-            transform.localScale = new Vector3(transform.localScale.x * -1.0f, transform.localScale.y, transform.localScale.z);
+            ReverseDirection();
         }
 
         Rigidbody.velocity = (DirectionFacing * speed);
+    }
+
+    private void ReverseDirection()
+    {
+        //reverse out patrol direction
+        DirectionFacing *= -1;
+        TimeSinceLastPatrol = Time.time;
+        transform.localScale = new Vector3(transform.localScale.x * -1.0f, transform.localScale.y, transform.localScale.z);
     }
 
     /// <summary>
